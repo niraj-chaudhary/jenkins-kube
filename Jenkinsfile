@@ -6,14 +6,14 @@ pipeline {
     stages{
        stage('Build Docker Image'){
 	  steps{
-		sh "docker build  . -t pythonapp:${DOCKER_TAG}"
+		sh "docker build  . -t nirajcoss/pythonapp:${DOCKER_TAG}"
 	  }
        }
       stage('DockerHub Push'){
           steps{
 		withCredentials([string(credentialsId: 'docker-hub', variable: 'Docker-Hub')]) {
     			sh "docker login -u nirajcoss -p ${Docker-Hub}"
-			sh "docker push nirajcoss/jenkins-kube:${DOCKER_TAG}"
+			sh "docker push nirajcoss/pythonapp:${DOCKER_TAG}"
 		}	
 	  }
       }
